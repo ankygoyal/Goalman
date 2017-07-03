@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Goalman.Service", "Goalman.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoalManSettings", "GoalManSettings\GoalManSettings.csproj", "{F4467D92-34A0-4C24-83F6-982F1D254885}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoalmanUI", "GoalmanUI\GoalmanUI.csproj", "{EFF98EA3-9462-42A5-9EC4-92DD64AD012F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F4467D92-34A0-4C24-83F6-982F1D254885}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4467D92-34A0-4C24-83F6-982F1D254885}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4467D92-34A0-4C24-83F6-982F1D254885}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFF98EA3-9462-42A5-9EC4-92DD64AD012F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFF98EA3-9462-42A5-9EC4-92DD64AD012F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFF98EA3-9462-42A5-9EC4-92DD64AD012F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFF98EA3-9462-42A5-9EC4-92DD64AD012F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

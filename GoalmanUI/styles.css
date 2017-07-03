@@ -1,0 +1,97 @@
+﻿ html {
+            box-sizing: border-box;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        body {
+            font-family: "Titillium Web", Arial, sans-serif;
+            font-size: 20px;
+            margin: 0;
+        }
+
+        .container {
+          
+        }
+        
+        .jumbotron {
+            padding-top: 30px;
+           /* padding-bottom: 30px;*/
+            /* margin-bottom: 30px; */
+            color: inherit;
+            background-color: #eee;
+        }
+        input {
+            
+        }
+        .col-centered{
+                float: none;
+                margin: 0 auto;
+        }
+        textarea {
+            border: 1px solid #122435;
+            padding: 0.5em;
+            -webkit-transition: all 0.35s ease-in;
+        }
+
+            input:active, input:focus, textarea:active, textarea:focus {
+                outline: 1px solid #48788B;
+            }
+
+        .btn {
+            border: 1px solid #549EAF;
+            cursor: pointer;
+            display: inline-block;
+            font-family: "Titillium Web";
+            font-size: 20px;
+            line-height: 43px;
+            padding: 0 0.75em;
+            text-align: center;
+            text-transform: uppercase;
+            -webkit-transition: all 0.35s ease-in;
+        }
+
+            .btn:hover {
+                background-color: #1888A9;
+                color: white;
+            }
+
+        .debug {
+            bottom: 0;
+            position: fixed;
+            right: 0;
+        }
+
+        .debug__content {
+            font-size: 14px;
+            max-height: 0;
+            overflow: hidden;
+            -webkit-transition: all 0.35s ease-in;
+        }
+
+            .debug__content.is-active {
+                display: block;
+                max-height: 500px;
+            }
+
+        .debug__btn {
+            width: 100%;
+        }
+
+        .spoken-response {
+            max-height: 0;
+            overflow: hidden;
+            -webkit-transition: all 0.35s ease-in;
+        }
+
+            .spoken-response.is-active {
+                max-height: 400px;
+            }
+
+        .spoken-response__text {
+            background-color: #e6e7e8;
+            color: #020408;
+            padding: 1em;
+        }
