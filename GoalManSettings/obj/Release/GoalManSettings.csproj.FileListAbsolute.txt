@@ -1,0 +1,5 @@
+C:\Users\Sakshi Agarwal\Source\Repos\Goalman\GoalManSettings\bin\Release\GoalManSettings.dll
+C:\Users\Sakshi Agarwal\Source\Repos\Goalman\GoalManSettings\bin\Release\GoalManSettings.pdb
+C:\Users\Sakshi Agarwal\Source\Repos\Goalman\GoalManSettings\obj\Release\GoalManSettings.csprojResolveAssemblyReference.cache
+C:\Users\Sakshi Agarwal\Source\Repos\Goalman\GoalManSettings\obj\Release\GoalManSettings.dll
+C:\Users\Sakshi Agarwal\Source\Repos\Goalman\GoalManSettings\obj\Release\GoalManSettings.pdb

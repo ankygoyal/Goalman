@@ -11,7 +11,7 @@ namespace GoalManSettings
         public string speech { get; set; }
         public string displayText { get; set; }
         public ResponseData data { get; set; }
-        public ResponseContextOut contextOut { get; set; }
+        public string[] contextOut { get; set; }
         public string source { get; set; }
     }
 }
