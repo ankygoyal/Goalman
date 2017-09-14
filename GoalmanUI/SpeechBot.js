@@ -1,4 +1,4 @@
-﻿var accessToken = "5edc241c29cf4c2883c93a7941f60877",
+﻿var accessToken = "449bbb588f534b71b42b019811831fa6",
     baseUrl = "https://api.api.ai/v1/",
     $speechInput,
     $recBtn,
@@ -9,6 +9,7 @@
     messageInternalError = "Oh no, there has been an internal server error",
     messageSorry = "I'm sorry, I don't have the answer to that yet.";
 
+var uniqueSessionId;
 
 if (('webkitSpeechRecognition' in window)) {
     var recognition = new webkitSpeechRecognition();
@@ -17,16 +18,18 @@ if (('webkitSpeechRecognition' in window)) {
     recognition.lang = "en-US";
 }
 else {
-    alert('webkitSpeechRecognition not found in window');
+    console.log('webkitSpeechRecognition not found in window');
 }
 
 $(document).ready(function () {
     $speechInput = $("#speech");
     $recBtn = $("#rec");
     $recSpan = $("#recspan");
+    uniqueSessionId = guid();
 });
 
 var recognizing = false;
+var start_timestamp;
 
 function recButtonClicked(event)
 {
@@ -50,17 +53,18 @@ function debugOnClick(event)
 
 function startRecognition() {
     recognition.start();
+    start_timestamp = event.timeStamp;
     console.log("Recognition started");
 }
 
 recognition.onstart = function (event) {
-    alert("onstart started");
+    console.log("onstart started");
     recognizing = true;
     respond(messageRecording);
     updateRec();
 };
 recognition.onresult = function (event) {
-    alert("onresult started");
+    console.log("onresult started");
     var text = "";
     for (var i = event.resultIndex; i < event.results.length; ++i) {
         text += event.results[i][0].transcript;
@@ -69,18 +73,30 @@ recognition.onresult = function (event) {
     stopRecognition();
 };
 
-//   recognition.onerror = function(event) {
-// alert(event.error);
-//};
+recognition.onerror = function (event) {
+    if (event.error == 'no-speech') {
+        alert("No speech was detected. You may need to adjust your microphone settings");
+    }
+    if (event.error == 'audio-capture') {
+        alert("No microphone was found. Ensure that a microphone is installed and that microphone settings are configured correctly.");
+    }
+    if (event.error == 'not-allowed') {
+        if (event.timeStamp - start_timestamp < 100) {
+            alert("Permission to use microphone is blocked.");
+        } else {
+            alert('Permission to use microphone was denied.');
+        }
+    }
+};
+
 recognition.onend = function () {
-    alert("onend started");
-    respond(messageCouldntHear);
+    console.log("onend started");
     stopRecognition();
 };
 
 function stopRecognition() {
     if (recognition) {
-        alert("Recognition stopped");
+        console.log("Recognition stopped");
         recognition.stop();
     }
     updateRec();
@@ -110,7 +126,7 @@ function send() {
         headers: {
             "Authorization": "Bearer " + accessToken
         },
-        data: JSON.stringify({ query: text, lang: "en", sessionId: "yaydevdiner" }),
+        data: JSON.stringify({ query: text, lang: "en", sessionId: uniqueSessionId }),
         success: function (data) {
             prepareResponse(data);
             // clearInput();
@@ -137,12 +153,12 @@ function guid() {
 }
 
 function prepareResponse(val) {
-    alert("response", val);
+    console.log("response", val);
     var debugJSON = JSON.stringify(val, undefined, 2),
       spokenResponse = val.result.speech;
     respond(spokenResponse);
     debugRespond(debugJSON);
-    alert("json result", val);
+    console.log("json result", val);
 }
 function debugRespond(val) {
     $("#response").text(val);
