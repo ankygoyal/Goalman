@@ -2,39 +2,42 @@
 <head>
     <title>Goalman</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+    <meta name="viewport" content="width=device-width, initial-sca
+          le=1.0" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="SpeechBot.js">
     </script>
 
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
     <div class="container">
-      
-            <div class="jumbotron" style="background-color:white; padding-bottom:0px;margin-bottom:0px;">
-                    <h1 align="center" style="color:#1e5e6d;">Goalman</h1>
-            </div>
-       
-        <div class="row" style="padding: 20px";>
+
+        <div class="jumbotron" style="background-color:white; padding-bottom:0px;margin-bottom:0px;">
+            <h1 align="center" style="color:#1e5e6d;">Goalman</h1>
+        </div>
+
+        <div class="row" style="padding: 20px" ;>
             <!----<div class="col-md-8 col-centered" align="center">-->
-                <div class="input-group col-centered">
-                    <input id="speech" type="text" class="form-control" align="center">
-                    <span class="input-group-btn">
-                        <button id="rec" class="btn btn-primary"><span id="recspan">Speak</span> <i class="fa fa-microphone" style="padding: 2px;"></i></button>
-                    </span>
-                </div>
-             <!----</div>-->
+            <div class="input-group col-centered">
+                <input id="speech" type="text" class="form-control" align="center" onkeypress="speechOnKeyPress(event)">
+                <span class="input-group-btn">
+                    <button id="rec" class="btn btn-primary" onclick="recButtonClicked(event)">
+                        <span id="recspan">Speak</span>
+                        <i class="fa fa-microphone" style="padding: 2px;"></i>
+                    </button>
+                </span>
+            </div>
+            <!----</div>-->
         </div>
         <div class="row" align="center" style="padding: 20px;">
             <!----<div class="col-md-8 col-centered" align="center" style="background-color:#e6e7e8;">-->
-                <div id="spokenResponse" class="spoken-response" >
-                    <div class="spoken-response__text" ></div>
-                </div>
+            <div id="spokenResponse" class="spoken-response">
+                <div class="spoken-response__text"></div>
+            </div>
             <!----</div>-->
         </div>
         <div class="row" style="padding: 20px;">
@@ -64,10 +67,10 @@
         </div>
     </div>
     <div class="debug">
-        <div class="debug__btn btn">
+        <div class="debug__btn btn" onclick="debugOnClick(event)">
             Debug JSON results
         </div>
-        <div class="debug__content">
+        <div id="debugContent"class="debug__content">
             <textarea id="response" cols="40" rows="20"></textarea>
         </div>
     </div>

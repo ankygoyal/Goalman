@@ -8,63 +8,86 @@
     messageCouldntHear = "I couldn't hear you, could you say that again?",
     messageInternalError = "Oh no, there has been an internal server error",
     messageSorry = "I'm sorry, I don't have the answer to that yet.";
+
+
+if (('webkitSpeechRecognition' in window)) {
+    var recognition = new webkitSpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = "en-US";
+}
+else {
+    alert('webkitSpeechRecognition not found in window');
+}
+
 $(document).ready(function () {
     $speechInput = $("#speech");
     $recBtn = $("#rec");
     $recSpan = $("#recspan");
-    $speechInput.keypress(function (event) {
-        if (event.which == 13) {
-            event.preventDefault();
-            send();
-        }
-    });
-    $recBtn.on("click", function (event) {
-        switchRecognition();
-    });
-    $(".debug__btn").on("click", function () {
-        $(this).next().toggleClass("is-active");
-        return false;
-    });
 });
-function startRecognition() {
-    recognition = new webkitSpeechRecognition();
-    recognition.continuous = false;
-    recognition.interimResults = false;
-    recognition.onstart = function (event) {
-        respond(messageRecording);
-        updateRec();
-    };
-    recognition.onresult = function (event) {
-        recognition.onend = null;
-       // alert("Hi event fires");
-        var text = "";
-        for (var i = event.resultIndex; i < event.results.length; ++i) {
-            text += event.results[i][0].transcript;
-        }
-        setInput(text);
-        stopRecognition();
-    };
 
- //   recognition.onerror = function(event) {
-   // alert(event.error);
-//};
-    recognition.onend = function () {
-        respond(messageCouldntHear);
-        stopRecognition();
-    };
-    recognition.lang = "en-US";
-    recognition.start();
+var recognizing = false;
+
+function recButtonClicked(event)
+{
+    switchRecognition();
 }
+
+function speechOnKeyPress(event)
+{
+    if (event.which == 13) {
+        event.preventDefault();
+        send();
+    }
+}
+
+function debugOnClick(event)
+{
+    var d = document.getElementById("debugContent");
+    d.className += " is-active";
+    return false;
+}
+
+function startRecognition() {
+    recognition.start();
+    console.log("Recognition started");
+}
+
+recognition.onstart = function (event) {
+    alert("onstart started");
+    recognizing = true;
+    respond(messageRecording);
+    updateRec();
+};
+recognition.onresult = function (event) {
+    alert("onresult started");
+    var text = "";
+    for (var i = event.resultIndex; i < event.results.length; ++i) {
+        text += event.results[i][0].transcript;
+    }
+    setInput(text);
+    stopRecognition();
+};
+
+//   recognition.onerror = function(event) {
+// alert(event.error);
+//};
+recognition.onend = function () {
+    alert("onend started");
+    respond(messageCouldntHear);
+    stopRecognition();
+};
 
 function stopRecognition() {
     if (recognition) {
+        alert("Recognition stopped");
         recognition.stop();
-        recognition = null;
     }
     updateRec();
+    recognizing = false;
 }
 function switchRecognition() {
-    if (recognition) {
+    if (recognizing) {
         stopRecognition();
     } else {
         startRecognition();
@@ -75,7 +98,7 @@ function setInput(text) {
     send();
 }
 function updateRec() {
-    $recSpan.text(recognition ? "Stop" : "Speak");
+    $recSpan.text(recognizing ? "Stop" : "Speak");
 }
 function send() {
     var text = $speechInput.val();
@@ -90,17 +113,16 @@ function send() {
         data: JSON.stringify({ query: text, lang: "en", sessionId: "yaydevdiner" }),
         success: function (data) {
             prepareResponse(data);
-           // clearInput();
+            // clearInput();
         },
         error: function () {
             respond(messageInternalError);
-           // clearInput();
+            // clearInput();
         }
     });
 }
 
-function clearInput()
-{
+function clearInput() {
     $speechInput.val("");
 }
 
@@ -115,12 +137,12 @@ function guid() {
 }
 
 function prepareResponse(val) {
-    console.log("response", val);
+    alert("response", val);
     var debugJSON = JSON.stringify(val, undefined, 2),
       spokenResponse = val.result.speech;
     respond(spokenResponse);
     debugRespond(debugJSON);
-    console.log("json result", val);
+    alert("json result", val);
 }
 function debugRespond(val) {
     $("#response").text(val);
