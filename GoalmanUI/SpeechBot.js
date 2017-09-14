@@ -1,4 +1,4 @@
-﻿var accessToken = "449bbb588f534b71b42b019811831fa6",
+﻿var accessToken = "5edc241c29cf4c2883c93a7941f60877",
     baseUrl = "https://api.api.ai/v1/",
     $speechInput,
     $recBtn,
@@ -36,7 +36,7 @@ function startRecognition() {
     };
     recognition.onresult = function (event) {
         recognition.onend = null;
-
+       // alert("Hi event fires");
         var text = "";
         for (var i = event.resultIndex; i < event.results.length; ++i) {
             text += event.results[i][0].transcript;
@@ -44,6 +44,10 @@ function startRecognition() {
         setInput(text);
         stopRecognition();
     };
+
+ //   recognition.onerror = function(event) {
+   // alert(event.error);
+//};
     recognition.onend = function () {
         respond(messageCouldntHear);
         stopRecognition();
@@ -72,7 +76,6 @@ function setInput(text) {
 }
 function updateRec() {
     $recSpan.text(recognition ? "Stop" : "Speak");
-   // $recBtn.text(recognition ? "Stop" : "Speak");
 }
 function send() {
     var text = $speechInput.val();
@@ -84,14 +87,14 @@ function send() {
         headers: {
             "Authorization": "Bearer " + accessToken
         },
-        data: JSON.stringify({ query: text, lang: "en", sessionId: guid() }),
+        data: JSON.stringify({ query: text, lang: "en", sessionId: "yaydevdiner" }),
         success: function (data) {
             prepareResponse(data);
-            clearInput();
+           // clearInput();
         },
         error: function () {
             respond(messageInternalError);
-            clearInput();
+           // clearInput();
         }
     });
 }
