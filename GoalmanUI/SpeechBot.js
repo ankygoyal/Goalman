@@ -6,7 +6,7 @@
     recognition,
     messageRecording = "Recording...",
     messageCouldntHear = "I couldn't hear you, could you say that again?",
-    messageInternalError = "Oh no, there has been an internal server error",
+    messageInternalError = "It seems my internal systems broke down. Please try after sometime.",
     messageSorry = "I'm sorry, I don't have the answer to that yet.";
 
 var uniqueSessionId;
@@ -129,11 +129,11 @@ function send() {
         data: JSON.stringify({ query: text, lang: "en", sessionId: uniqueSessionId }),
         success: function (data) {
             prepareResponse(data);
-            // clearInput();
+            clearInput();
         },
         error: function () {
             respond(messageInternalError);
-            // clearInput();
+            clearInput();
         }
     });
 }
