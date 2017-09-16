@@ -11,6 +11,11 @@
 
 var uniqueSessionId;
 
+var fbAccessToken = "EAACEdEose0cBALZCqmccL1XmFRPaWbZAZC8o02ASjqkX4mzhx5Nf9yZC6Sj8uOcE6ekYBBLuT6H6nF9jYr3ZAEYr3qlekBGWpFa38xbcQTlYqu5CZAHU1fQiz2bGxwkYnyvcwaFA9vDKDv1eCyIxa89j8wmZBqDI6ZApH93Q7gJalnluE83QTbLSQXLGBN4AyZCrZB3TZB6bTU0bYTCDT8OnZBve";
+var fbBaseUrl = "https://graph.facebook.com/v2.10/";
+var fbGoalmanProfileId = "123598378297996";
+var latestFBPostMessage = "";
+
 if (('webkitSpeechRecognition' in window)) {
     var recognition = new webkitSpeechRecognition();
     recognition.continuous = false;
@@ -26,10 +31,17 @@ $(document).ready(function () {
     $recBtn = $("#rec");
     $recSpan = $("#recspan");
     uniqueSessionId = guid();
+    
 });
 
 var recognizing = false;
 var start_timestamp;
+
+function btnSyncFBClicked(event)
+{
+    getLatestPostFromFB();
+    
+}
 
 function recButtonClicked(event)
 {
@@ -40,7 +52,7 @@ function speechOnKeyPress(event)
 {
     if (event.which == 13) {
         event.preventDefault();
-        send();
+        send($speechInput.val());
     }
 }
 
@@ -111,13 +123,12 @@ function switchRecognition() {
 }
 function setInput(text) {
     $speechInput.val(text);
-    send();
+    send($speechInput.val());
 }
 function updateRec() {
     $recSpan.text(recognizing ? "Stop" : "Speak");
 }
-function send() {
-    var text = $speechInput.val();
+function send(text) {
     $.ajax({
         type: "POST",
         url: baseUrl + "query",
@@ -135,6 +146,27 @@ function send() {
             respond(messageInternalError);
             clearInput();
         }
+    });
+}
+
+function getLatestPostFromFB()
+{
+    var postsUrl = fbBaseUrl + fbGoalmanProfileId + "/feed?access_token=" + fbAccessToken;
+    var postId = "";
+    $.getJSON(postsUrl, function (message) {
+        postId = message.data[0].id;
+        console.log("Post id = " + postId);
+        getLatestPostMessage(postId);
+    });
+}
+
+function getLatestPostMessage(postId)
+{
+    var postUrl = fbBaseUrl + postId + "?access_token=" + fbAccessToken;
+    $.getJSON(postUrl, function (response) {
+        latestFBPostMessage = response.message;
+        console.log("Latest post message = " + latestFBPostMessage);
+        send(latestFBPostMessage);
     });
 }
 
