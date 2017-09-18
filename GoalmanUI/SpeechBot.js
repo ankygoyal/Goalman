@@ -11,7 +11,7 @@
 
 var uniqueSessionId;
 
-var fbAccessToken = "EAACEdEose0cBALZCqmccL1XmFRPaWbZAZC8o02ASjqkX4mzhx5Nf9yZC6Sj8uOcE6ekYBBLuT6H6nF9jYr3ZAEYr3qlekBGWpFa38xbcQTlYqu5CZAHU1fQiz2bGxwkYnyvcwaFA9vDKDv1eCyIxa89j8wmZBqDI6ZApH93Q7gJalnluE83QTbLSQXLGBN4AyZCrZB3TZB6bTU0bYTCDT8OnZBve";
+var fbAccessToken = "EAACEdEose0cBABLvAEPorqP6U4XDBabBq8vCwZCbUuXBmkZC4R6gTLZAPNf0jy3TS3xyF7lp5ZALoIq9YbKpZB5Xc2jX81YFHZAdTYgdS6EGuEsltsmlZCHxmuSdquIPWNFz4EM8WNSTbH9AytQP0dZCXnFpId4b3K0r9VrJR8oCEcejUNPF2FrUR6GVt8AqoO1fqKQQQmgZCjWerun6cPjwJTEDDTmFkIo4ZD";
 var fbBaseUrl = "https://graph.facebook.com/v2.10/";
 var fbGoalmanProfileId = "123598378297996";
 var latestFBPostMessage = "";
@@ -166,7 +166,7 @@ function getLatestPostMessage(postId)
     $.getJSON(postUrl, function (response) {
         latestFBPostMessage = response.message;
         console.log("Latest post message = " + latestFBPostMessage);
-        send(latestFBPostMessage);
+        send("facebook "+latestFBPostMessage);
     });
 }
 
