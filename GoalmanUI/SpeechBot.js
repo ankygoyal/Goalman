@@ -11,7 +11,7 @@
 
 var uniqueSessionId;
 
-var fbAccessToken = "EAACEdEose0cBABLvAEPorqP6U4XDBabBq8vCwZCbUuXBmkZC4R6gTLZAPNf0jy3TS3xyF7lp5ZALoIq9YbKpZB5Xc2jX81YFHZAdTYgdS6EGuEsltsmlZCHxmuSdquIPWNFz4EM8WNSTbH9AytQP0dZCXnFpId4b3K0r9VrJR8oCEcejUNPF2FrUR6GVt8AqoO1fqKQQQmgZCjWerun6cPjwJTEDDTmFkIo4ZD";
+var $fbKeyInput = "EAACEdEose0cBAA7TZBvgdOj84XIam4mAkznTenLYh4fLrDJ1rVn8LxKR9TA4oTZCZBaLb3VRAAHCBtQqa1HcqDNpqeYexARn4vy97qcrUZBGZBAxKnZAIRUqGD6nDHxHoMlR6h71aYEOtFVwJc1ZBcVpaRTuZACnOmZBAmVORVQLMLZAftmAMq1G6NifWUCLGSZBo0agqbXOWeziDyN7gky6OrK";
 var fbBaseUrl = "https://graph.facebook.com/v2.10/";
 var fbGoalmanProfileId = "123598378297996";
 var latestFBPostMessage = "";
@@ -30,6 +30,7 @@ $(document).ready(function () {
     $speechInput = $("#speech");
     $recBtn = $("#rec");
     $recSpan = $("#recspan");
+    $fbKeyInput = $("#fbUserKey");
     uniqueSessionId = guid();
     
 });
@@ -151,7 +152,7 @@ function send(text) {
 
 function getLatestPostFromFB()
 {
-    var postsUrl = fbBaseUrl + fbGoalmanProfileId + "/feed?access_token=" + fbAccessToken;
+    var postsUrl = fbBaseUrl + fbGoalmanProfileId + "/feed?access_token=" + $fbKeyInput.val();
     var postId = "";
     $.getJSON(postsUrl, function (message) {
         postId = message.data[0].id;
@@ -162,7 +163,7 @@ function getLatestPostFromFB()
 
 function getLatestPostMessage(postId)
 {
-    var postUrl = fbBaseUrl + postId + "?access_token=" + fbAccessToken;
+    var postUrl = fbBaseUrl + postId + "?access_token=" + $fbKeyInput.val();
     $.getJSON(postUrl, function (response) {
         latestFBPostMessage = response.message;
         console.log("Latest post message = " + latestFBPostMessage);
