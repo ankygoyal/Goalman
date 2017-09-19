@@ -68,19 +68,25 @@
             <button id="btnSyncFB" onclick="">Sync from Facebook</button>
 
         </div>-->
+        
     </div>
-    <div class="btn" onclick="btnSyncFBClicked(event)">
-        Sync from Facebook
+    <div class="debug" style="padding: 20px;">
+        <div class="btn" onclick="btnSyncExpanderFBClicked(event)" style="float:left;">
+            Facebok Sync
+        </div>
+        <div id="fbPanel" style="float:left;display:none;">
+            <input type="button" name="Sync Now" value="Sync Now" onclick="btnSyncFBClicked(event)" title="Sync Now" />
+            <input type="text" id="fbUserKey" style="float:left;" />
+        </div>
     </div>
-    <div><input type="text" id="fbUserKey" /></div>
-    <div class="debug">
+    <!--<div class="debug">
         <div class="debug__btn btn" onclick="debugOnClick(event)">
             Debug JSON results
         </div>
         <div id="debugContent" class="debug__content">
             <textarea id="response" cols="40" rows="20"></textarea>
         </div>
-    </div>
+    </div>-->
 
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:200" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

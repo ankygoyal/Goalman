@@ -44,6 +44,10 @@ function btnSyncFBClicked(event)
     
 }
 
+function btnSyncExpanderFBClicked(event) {
+    $("#fbPanel").toggle();
+}
+
 function recButtonClicked(event)
 {
     switchRecognition();
@@ -57,12 +61,12 @@ function speechOnKeyPress(event)
     }
 }
 
-function debugOnClick(event)
-{
-    var d = document.getElementById("debugContent");
-    d.className += " is-active";
-    return false;
-}
+//function debugOnClick(event)
+//{
+//    var d = document.getElementById("debugContent");
+//    d.className += " is-active";
+//    return false;
+//}
 
 function startRecognition() {
     recognition.start();
@@ -190,7 +194,7 @@ function prepareResponse(val) {
     var debugJSON = JSON.stringify(val, undefined, 2),
       spokenResponse = val.result.speech;
     respond(spokenResponse);
-    debugRespond(debugJSON);
+    //debugRespond(debugJSON);
     console.log("json result", val);
 }
 function debugRespond(val) {
